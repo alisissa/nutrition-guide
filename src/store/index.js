@@ -48,10 +48,12 @@ export const mutations = {
 
 
 export const actions = {
-  getFoodItems({ commit }) {
+  getFoodItems({ commit }, payload) {
     // commit LOADING until the promise is fulfilled
     commit('CLEAR_ITEMS')
     commit('LOADING')
+
+    console.log(payload)
   }
 }
 

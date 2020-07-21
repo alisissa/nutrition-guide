@@ -3,6 +3,7 @@
     <div id="nav">
       <div class="header-title">Nutrition Guide</div>
     </div>
+    <app-background></app-background>
     <div class="search-box">
       <div class="search-box_input-container">
         <input class="search-box_input-container_input" type="text" placeholder="Search..." />
@@ -14,6 +15,17 @@
     <router-view />
   </div>
 </template>
+
+<script>
+import AppBackground from "./components/AppBackground";
+
+export default {
+  name: "App",
+  components: {
+    AppBackground
+  }
+};
+</script>
 
 <style lang="scss">
 body {
