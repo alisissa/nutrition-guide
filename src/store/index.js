@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { EDAMAM } from '@/apis/edamam';
 
 Vue.use(Vuex)
 
@@ -15,13 +16,13 @@ const state = {
 
 export const mutations = {
   SET_ITEMS: (state, payload) => {
-    state.itemsList = payload
+    state.foodList = payload
   },
   SELECT_FOOD_ITEM: (state, payload) => {
     state.selectedFoodItem = payload
   },
   CLEAR_ITEMS: (state) => {
-    state.itemsList = []
+    state.foodList = []
   },
   LOADING: (state) => {
     state.status = {
@@ -50,10 +51,23 @@ export const mutations = {
 export const actions = {
   getFoodItems({ commit }, payload) {
     // commit LOADING until the promise is fulfilled
-    commit('CLEAR_ITEMS')
     commit('LOADING')
+    commit('CLEAR_ITEMS')
 
-    console.log(payload)
+    return EDAMAM.get('/parser', { params: payload })
+      .then(response => {
+        commit('SET_ITEMS', response.data.hints)
+        commit('SUCCESS')
+      })
+      .catch(() => {
+        // commit error if the promise was rejected, also I am demonstrating here how to handle the server errors and
+        // translate them to application friendly error.
+        // for the purpose of this assignment, I am assuming that I am getting the error 400.
+        commit('ERROR', {
+          status: 400,
+          message: 'an error has occured'
+        })
+      })
   }
 }
 
