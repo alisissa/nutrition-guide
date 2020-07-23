@@ -6,7 +6,6 @@ Vue.use(Vuex)
 
 const state = {
   foodList: [],
-  selectedFoodItem: {},
   status: {
     loading: false,
     success: false,
@@ -24,9 +23,6 @@ export const mutations = {
     uniqueList = uniqueList.filter((v, i, a) => a.findIndex(t => (t.food.foodId === v.food.foodId)) === i)
     // set new state
     state.foodList = [...uniqueList]
-  },
-  SELECT_FOOD_ITEM: (state, payload) => {
-    state.selectedFoodItem = payload
   },
   CLEAR_ITEMS: (state) => {
     state.foodList = []
@@ -83,7 +79,6 @@ export const actions = {
 
 export const getters = {
   foodList: (state) => state.foodList,
-  selectedFoodItem: (state) => state.selectedFoodItem,
   status: (state) => state.status
 }
 
