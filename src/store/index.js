@@ -16,7 +16,14 @@ const state = {
 
 export const mutations = {
   SET_ITEMS: (state, payload) => {
-    state.foodList = payload
+    // clone foodList to another list
+    let uniqueList = [...state.foodList]
+    // push items from payload to uniqueList using the spread operator
+    uniqueList.push(...payload)
+    // filter out any duplicates based on foodId
+    uniqueList = uniqueList.filter((v, i, a) => a.findIndex(t => (t.food.foodId === v.food.foodId)) === i)
+    // set new state
+    state.foodList = [...uniqueList]
   },
   SELECT_FOOD_ITEM: (state, payload) => {
     state.selectedFoodItem = payload
@@ -52,7 +59,10 @@ export const actions = {
   getFoodItems({ commit }, payload) {
     // commit LOADING until the promise is fulfilled
     commit('LOADING')
-    commit('CLEAR_ITEMS')
+    if (payload.clearItems) {
+      delete payload['clearItems']
+      commit('CLEAR_ITEMS')
+    }
 
     return EDAMAM.get('/parser', { params: payload })
       .then(response => {

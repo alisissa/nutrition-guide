@@ -5,14 +5,21 @@
         <header class="modal-header">
           <slot name="header">
             <span class="modal-header_title">{{item.food.label}}</span>
-            <button type="button" class="btn-close" @click="close" aria-label="Close modal">x</button>
+            <button
+              type="button"
+              class="modal-header_btn-close"
+              @click="close"
+              aria-label="Close modal"
+            >x</button>
           </slot>
         </header>
         <section class="modal-body">
           <img :src="item.food.image ? item.food.image : '/images/placeholder-image.png'" />
+          <div class="modal-body_nutrients-title">Nutrients</div>
           <div>Carbs: {{item.food.nutrients.CHOCDF | format}}</div>
           <div>Fat: {{item.food.nutrients.FAT | format}}</div>
           <div>Protein: {{item.food.nutrients.PROCNT | format}}</div>
+          <div>Fiber: {{item.food.nutrients.FIBTG | format}}</div>
           <div>Kcal: {{item.food.nutrients.ENERC_KCAL | format}}</div>
         </section>
       </div>
@@ -70,7 +77,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  border-bottom: 1px solid $off-white;
+  border-bottom: 1px solid $light-gray;
   color: $primary;
   margin-top: 5px;
 
@@ -78,22 +85,27 @@ export default {
     font-size: 24px;
     padding-left: 25px;
   }
+
+  &_btn-close {
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    color: $primary;
+    background: transparent;
+  }
 }
 
 .modal-body {
-  padding: 10px 10px;
+  padding: 10px 0;
 
   img {
     max-width: 300px;
   }
-}
 
-.btn-close {
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  font-weight: bold;
-  color: $primary;
-  background: transparent;
+  &_nutrients-title {
+    border-bottom: 1px solid $light-gray;
+    margin: 5px 0;
+  }
 }
 </style>

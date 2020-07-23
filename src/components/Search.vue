@@ -6,17 +6,18 @@
         type="text"
         placeholder="Search..."
         v-model="keyword"
-        v-on:keyup.enter="getFoodItems({ingr: keyword})"
+        v-on:keyup.enter="searchFood({ingr: keyword})"
       />
     </div>
     <div class="search-box_icon-container">
-      <i class="fa fa-search search-box_icon-container_icon" @click="getFoodItems({ingr: keyword})"></i>
+      <i class="fa fa-search search-box_icon-container_icon" @click="searchFood({ingr: keyword})"></i>
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+import { bus } from "@/main";
 
 export default {
   name: "Search",
@@ -28,7 +29,12 @@ export default {
   methods: {
     ...mapActions({
       getFoodItems: "getFoodItems"
-    })
+    }),
+    searchFood() {
+      this.getFoodItems({ ingr: this.keyword, clearItems: true });
+      // emit event whenever the keyword is changed
+      bus.$emit("keywordChanged", this.keyword);
+    }
   }
 };
 </script>

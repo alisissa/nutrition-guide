@@ -6,7 +6,9 @@ import interceptorInit from './apis/interceptor';
 
 interceptorInit();
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+// exprot bus to be able to emit and subscribe
+export const bus = new Vue();
 
 new Vue({
   router,

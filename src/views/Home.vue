@@ -7,8 +7,11 @@
       <loader></loader>
     </div>
     <div v-else class="no-data">Your search returned no matches</div>
-    <!-- <div class="loading">{{status}}</div>
-    <div class="loading" @click="loadMore({})">load more</div>-->
+    <div
+      v-if="status.success"
+      class="load-more"
+      @click="loadMore({})"
+    >{{status.loading ? 'loading' : 'load more'}}</div>
   </div>
 </template>
 
@@ -16,6 +19,7 @@
 import Loader from "@/components/Loader";
 import FoodItem from "@/components/FoodItem";
 import { mapGetters, mapActions } from "vuex";
+import { bus } from "@/main";
 
 export default {
   name: "Home",
@@ -26,21 +30,33 @@ export default {
   data() {
     return {
       defualtSearch: "chicken",
-      page: 20,
-      isModalVisible: false
+      page: 40,
+      isModalVisible: false,
+      keyword: ""
     };
   },
   created: function() {
-    // load 10 news item with the default search keyword which is set to technology
-    this.getFoodItems({ ingr: this.defualtSearch, session: this.page });
+    this.getFoodItems({ ingr: this.defualtSearch, clearItems: true });
+
+    // set keyword to be defualtSearch by default
+    this.keyword = this.defualtSearch;
+
+    // subscribe to keyword change event in Search.vue
+    bus.$on("keywordChanged", data => {
+      this.keyword = data;
+      this.page = 40;
+    });
   },
   methods: {
     ...mapActions({
       getFoodItems: "getFoodItems"
     }),
     loadMore() {
-      this.page += 20;
-      this.getFoodItems({ ingr: this.defualtSearch, session: this.page });
+      this.getFoodItems({
+        ingr: this.keyword,
+        session: this.page
+      });
+      this.page += 40;
     }
   },
   computed: {
@@ -58,7 +74,7 @@ export default {
 
 .food-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   margin: 10px;
   flex-wrap: wrap;
 
@@ -77,6 +93,20 @@ export default {
   border-radius: 5px;
   width: 80%;
   height: 20vh;
+  background-color: $off-white-opacity;
+}
+
+.load-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $primary;
+  font-size: 16px;
+  margin: 3vh auto;
+  border-radius: 5px;
+  width: 80%;
+  height: 5vh;
+  cursor: pointer;
   background-color: $off-white-opacity;
 }
 </style>

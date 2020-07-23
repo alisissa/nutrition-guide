@@ -11,7 +11,6 @@ describe('DetailsModal', () => {
           nutrients: {
             ENERC_KCAL: 39.56789,
             PROCNT: 0.91,
-            FAT: 0.25,
             CHOCDF: 9.54,
             FIBTG: 1.5
           }
@@ -26,10 +25,11 @@ describe('DetailsModal', () => {
 
   it('should render nutrients data with the proper formatting', () => {
     const modalBody = wrapper.find('.modal-body')
-    expect(modalBody.findAll('div').at(0).text()).equal('Carbs: 9.54')
-    expect(modalBody.findAll('div').at(1).text()).equal('Fat: 0.25')
-    expect(modalBody.findAll('div').at(2).text()).equal('Protein: 0.91')
-    expect(modalBody.findAll('div').at(3).text()).equal('Kcal: 39.57')
+    expect(modalBody.findAll('div').at(1).text()).equal('Carbs: 9.54')
+    expect(modalBody.findAll('div').at(2).text()).equal('Fat: N/A')
+    expect(modalBody.findAll('div').at(3).text()).equal('Protein: 0.91')
+    expect(modalBody.findAll('div').at(4).text()).equal('Fiber: 1.50')
+    expect(modalBody.findAll('div').at(5).text()).equal('Kcal: 39.57')
   })
 
 })

@@ -7,7 +7,6 @@
       @click="showModal"
     />
     <div class="food-item_title">{{item.food.label}}</div>
-    <div></div>
   </div>
 </template>
 
@@ -45,6 +44,10 @@ export default {
 .food-item {
   width: 280px;
   margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   background-color: $off-white-opacity;
   border-radius: 5px;
 

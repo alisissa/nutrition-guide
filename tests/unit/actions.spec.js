@@ -38,6 +38,7 @@ describe("actions", () => {
       ingr: 'peach',
       app_id: 'a964ef11',
       app_key: '8f4d505a189b4087ecd8e5abfcedcd20',
+      clearItems: true
     }
     mock.onGet('https://api.edamam.com/api/food-database/v2/parser').replyOnce(200, response)
     const state = null;
@@ -64,7 +65,8 @@ describe("actions", () => {
     const response = []
     const payload = {
       message: 'an error has occured',
-      status: 400
+      status: 400,
+      clearItems: true
     }
     mock.onGet('https://api.edamam.com/api/food-database/v2/parser').replyOnce(400, response)
     const state = null;
