@@ -1,4 +1,4 @@
-# nutrition-guide
+# Nutrition Guide
 
 ## Project setup
 ```
@@ -22,9 +22,9 @@ npm run test:unit
 
 ## Tech Stack:
 
-- Vuejs: I used Vuejs framework to build the user interface. Vuejs system is built around the concept of components, which are small reusable parts of UI and Code.
+- Vuejs: I used Vuejs framework to build the user interface. Vuejs system is built around the concept of components and views, components are reusable parts of UI and Code, while views are usually the SPA "pages" that use these components.
 
-- Vuex: Vuex is a state management pattern/library that centralizes the business logic and will unify the source of truth which is the Store
+- Vuex: Vuex is a state management pattern/library that centralizes the business logic and will unify the source of truth which is the Store.
 
 - SASS
 
